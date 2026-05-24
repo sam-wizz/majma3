@@ -3,11 +3,6 @@ export const dynamic = "force-dynamic";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 const T = {
   bg: "#0A0A0A", surface: "#111111", surface2: "#181818",
   border: "rgba(255,255,255,0.07)", gold: "#C8A96E",
@@ -16,6 +11,11 @@ const T = {
 };
 
 export default function Home() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
   const [brands, setBrands] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
@@ -68,9 +68,9 @@ export default function Home() {
   return (
     <main style={{ background: T.bg, minHeight: "100vh", direction: "rtl", fontFamily: "system-ui, sans-serif", padding: "60px 20px 40px" }}>
       <div style={{ marginBottom: 40 }}>
-        <div style={{ fontSize: 11, color: T.gold, letterSpacing: 3, marginBottom: 6 }}>اSAUDI MARKET </div>
+        <div style={{ fontSize: 11, color: T.gold, letterSpacing: 3, marginBottom: 6 }}>Saudi Markets</div>
         <div style={{ fontSize: 42, fontWeight: 900, color: T.gold, letterSpacing: -1 }}>مجـمـع</div>
-        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>جميـع البراندات السعودية في مكان واحد</div>
+        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>كل البراندات السعودية في مكان واحد</div>
       </div>
 
       {loading ? (
