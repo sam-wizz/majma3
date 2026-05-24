@@ -74,4 +74,34 @@ export default function Home() {
   }
 
   return (
-    <main style={{ background: T.bg, minHeight: "100vh", direction: "rtl
+    <main style={{ background: T.bg, minHeight: "100vh", direction: "rtl", fontFamily: "system-ui, sans-serif", padding: "60px 20px 40px" }}>
+      <div style={{ marginBottom: 40 }}>
+        <div style={{ fontSize: 11, color: T.gold, letterSpacing: 3, marginBottom: 6 }}>السوق السعودي المحلي</div>
+        <div style={{ fontSize: 42, fontWeight: 900, color: T.gold, letterSpacing: -1 }}>مجـمـع</div>
+        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>كل البراندات في مكان واحد</div>
+      </div>
+
+      {loading ? (
+        <div style={{ color: T.textTer, textAlign: "center", marginTop: 60 }}>جاري التحميل...</div>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          {brands.map((b, i) => (
+            <div key={i} onClick={() => openBrand(b.name)} style={{ background: T.surface, borderRadius: 22, overflow: "hidden", border: `1px solid ${T.border}`, cursor: "pointer" }}>
+              <div style={{ height: 3, background: `linear-gradient(90deg, ${T.gold}, transparent)` }}/>
+              <div style={{ padding: "16px 14px 18px" }}>
+                {b.logo_url ? (
+                  <img src={b.logo_url} alt={b.name} style={{ width: 52, height: 52, borderRadius: 14, objectFit: "cover", marginBottom: 14, border: `1px solid ${T.border}` }}/>
+                ) : (
+                  <div style={{ width: 52, height: 52, borderRadius: 14, background: "rgba(200,169,110,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 900, color: T.gold, marginBottom: 14 }}>{b.name?.[0]}</div>
+                )}
+                <div style={{ fontSize: 13, fontWeight: 800, color: T.textPri, marginBottom: 2 }}>{b.name}</div>
+                <div style={{ fontSize: 11, color: T.gold, marginBottom: 4 }}>{b.name_ar}</div>
+                <div style={{ fontSize: 10, color: T.textTer }}>{b.category}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </main>
+  );
+}
