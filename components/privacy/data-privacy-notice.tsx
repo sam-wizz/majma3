@@ -1,4 +1,5 @@
 import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -21,9 +22,9 @@ export function DataPrivacyNotice() {
         </p>
         <p>
           يمكنك طلب حذف بياناتك عبر التواصل مع الدعم. راجع أيضاً صفحة{" "}
-          <a href="/privacy" className="underline underline-offset-4">
+          <Link href="/privacy" className="underline underline-offset-4">
             سياسة الخصوصية
-          </a>
+          </Link>
           .
         </p>
       </AlertDescription>
