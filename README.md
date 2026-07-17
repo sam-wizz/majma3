@@ -13,6 +13,7 @@
 ## المزايا
 
 - مصادقة Supabase مع حماية `/dashboard` و `/orders` و `/distributors`
+- **لوحة إدارة** `/admin` لكل الصفقات والموزّعين وعمولات المنصة
 - إدارة الموزّعين والصفقات وعمولة مد
 - رفع فواتير اختياري (`/upload`) مع استخراج بالذكاء الاصطناعي
 - RLS بحيث يرى كل مستخدم بياناته فقط
@@ -42,6 +43,15 @@ npm install
 
 1. `supabase/schema.sql`
 2. `supabase/marketplace.sql`
+3. `supabase/admin.sql`
+
+رقِّ حسابك إلى مدير:
+
+```sql
+update public.profiles set role = 'admin' where email = 'your@email.com';
+```
+
+وأضف نفس البريد في `ADMIN_EMAILS` داخل `.env.local`.
 
 ```bash
 npm run dev
@@ -54,6 +64,7 @@ npm run dev
 3. أنشئ طلباً من `/orders` وأسنِده للموزّع
 4. حدّث الحالة: بدء التوصيل → تم التسليم
 5. راقب عمولة مد من لوحة التحكم
+6. إن كنت مديراً: افتح `/admin` لمتابعة كل المنصة
 
 ## نشر Vercel
 

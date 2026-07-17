@@ -1,6 +1,7 @@
 import { CreateDistributorForm } from "@/components/marketplace/create-distributor-form";
 import { DistributorsTable } from "@/components/marketplace/distributors-table";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { isAdminUser } from "@/lib/admin";
 import { requireUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import type { Distributor } from "@/types/marketplace";
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function DistributorsPage() {
   const user = await requireUser();
+  const isAdmin = await isAdminUser(user);
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -20,7 +22,7 @@ export default async function DistributorsPage() {
   const distributors = (data ?? []) as Distributor[];
 
   return (
-    <DashboardShell email={user.email}>
+    <DashboardShell email={user.email} isAdmin={isAdmin}>
       <div className="space-y-10">
         <div>
           <h1 className="font-heading text-3xl font-semibold tracking-tight">

@@ -1,4 +1,12 @@
-export type UserRole = "owner" | "admin" | "member" | "viewer";
+export type UserRole = "admin" | "user";
+
+export interface Profile {
+  id: string;
+  email: string | null;
+  full_name: string | null;
+  role: UserRole;
+  created_at: string;
+}
 
 export type SubscriptionPlan = "free" | "pro" | "enterprise";
 

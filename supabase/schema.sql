@@ -1,6 +1,8 @@
 -- مد / bAI schema + RLS
 -- Run this in the Supabase SQL editor before using the app.
--- Also run supabase/marketplace.sql for distributors, deals, and commissions.
+-- Also run:
+--   supabase/marketplace.sql  (distributors, deals, commissions)
+--   supabase/admin.sql        (profiles + admin RLS for /admin)
 
 -- ---------------------------------------------------------------------------
 -- Table

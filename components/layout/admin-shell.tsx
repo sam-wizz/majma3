@@ -5,30 +5,30 @@ import { Button } from "@/components/ui/button";
 import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
 
 const links = [
-  { href: "/dashboard", label: "لوحة التحكم" },
-  { href: "/orders", label: "الطلبات" },
-  { href: "/distributors", label: "الموزّعون" },
-  { href: "/upload", label: "الفواتير" },
-  { href: "/privacy", label: "الخصوصية" },
+  { href: "/admin", label: "نظرة عامة" },
+  { href: "/admin/deals", label: "كل الصفقات" },
+  { href: "/admin/distributors", label: "كل الموزّعين" },
+  { href: "/dashboard", label: "لوحة المستخدم" },
 ] as const;
 
-export function DashboardShell({
+export function AdminShell({
   email,
-  isAdmin = false,
   children,
 }: {
   email?: string | null;
-  isAdmin?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.02_200),transparent_55%),oklch(0.99_0.005_200)]">
-      <header className="border-b border-border/70 bg-background/80 backdrop-blur">
+    <div className="min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.94_0.03_210),transparent_50%),oklch(0.985_0.01_200)]">
+      <header className="border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="leading-tight">
+            <Link href="/admin" className="leading-tight">
               <span className="font-heading text-xl font-semibold">{APP_NAME}</span>
-              <span className="mr-2 text-xs text-muted-foreground" dir="ltr">
+              <span className="mr-2 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                إدارة
+              </span>
+              <span className="mr-1 text-xs text-muted-foreground" dir="ltr">
                 {APP_TECH_NAME}
               </span>
             </Link>
@@ -42,14 +42,6 @@ export function DashboardShell({
                   {link.label}
                 </Link>
               ))}
-              {isAdmin ? (
-                <Link
-                  href="/admin"
-                  className="text-sm font-medium text-primary transition-colors hover:text-primary/80"
-                >
-                  لوحة الإدارة
-                </Link>
-              ) : null}
             </nav>
           </div>
 

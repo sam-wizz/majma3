@@ -8,6 +8,7 @@ const PROTECTED_PREFIXES = [
   "/upload",
   "/orders",
   "/distributors",
+  "/admin",
 ];
 const AUTH_ROUTES = ["/login", "/signup"];
 

@@ -37,6 +37,14 @@ export function getOpenAIApiKey(): string {
   return required("OPENAI_API_KEY", process.env.OPENAI_API_KEY);
 }
 
+/** Server-only. Never expose via NEXT_PUBLIC_*. */
+export function getSupabaseServiceRoleKey(): string {
+  return required(
+    "SUPABASE_SERVICE_ROLE_KEY",
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  );
+}
+
 export function hasSupabaseConfig(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -44,3 +52,16 @@ export function hasSupabaseConfig(): boolean {
         process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)
   );
 }
+
+export function hasServiceRoleKey(): boolean {
+  return Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
+
+/** Comma-separated admin emails used to bootstrap platform access. */
+export function getAdminEmails(): string[] {
+  return (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+}
+

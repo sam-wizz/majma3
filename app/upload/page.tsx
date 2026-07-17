@@ -1,14 +1,16 @@
 import { UploadForm } from "@/components/invoices/upload-form";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { isAdminUser } from "@/lib/admin";
 import { requireUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function UploadPage() {
   const user = await requireUser();
+  const isAdmin = await isAdminUser(user);
 
   return (
-    <DashboardShell email={user.email}>
+    <DashboardShell email={user.email} isAdmin={isAdmin}>
       <div className="mx-auto max-w-2xl space-y-6">
         <div>
           <h1 className="font-heading text-3xl font-semibold tracking-tight">

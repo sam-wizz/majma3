@@ -1,6 +1,7 @@
 import { CreateDealForm } from "@/components/marketplace/create-deal-form";
 import { DealsTable } from "@/components/marketplace/deals-table";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { isAdminUser } from "@/lib/admin";
 import { requireUser } from "@/lib/auth";
 import { normalizeDeals } from "@/lib/deals";
 import { createClient } from "@/lib/supabase/server";
@@ -10,6 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function OrdersPage() {
   const user = await requireUser();
+  const isAdmin = await isAdminUser(user);
   const supabase = await createClient();
 
   const [{ data: distributorsData }, { data: dealsData, error }] =
@@ -33,7 +35,7 @@ export default async function OrdersPage() {
   const deals = normalizeDeals(dealsData);
 
   return (
-    <DashboardShell email={user.email}>
+    <DashboardShell email={user.email} isAdmin={isAdmin}>
       <div className="space-y-10">
         <div>
           <h1 className="font-heading text-3xl font-semibold tracking-tight">
