@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# bAI
 
-## Getting Started
+منصة توزيع: **الموزّع الموجود يستلم الطلب ويوصله**، و**bAI تأخذ عمولة من كل صفقة**.
 
-First, run the development server:
+مبنية على Next.js (App Router) + TypeScript + Tailwind CSS + shadcn/ui + Supabase.
+
+## نموذج العمل
+
+1. عبر **bAI** يُسجَّل الطلب ويُسند لموزّع
+2. **الموزّع الموجود** يستلم الطلب ويوصله للعميل
+3. **bAI** تحتسب عمولة تلقائية (افتراضياً 5%) من قيمة كل صفقة
+
+## المزايا
+
+- مصادقة Supabase مع حماية `/dashboard` و `/orders` و `/distributors`
+- **لوحة إدارة** `/admin` لكل الصفقات والموزّعين وعمولات المنصة
+- إدارة الموزّعين والصفقات وعمولة bAI
+- رفع فواتير اختياري (`/upload`) مع استخراج بالذكاء الاصطناعي
+- RLS بحيث يرى كل مستخدم بياناته فقط
+- إشعار خصوصية البيانات
+
+## البنية
+
+```text
+app/
+  dashboard/ orders/ distributors/ upload/ admin/
+  login/ signup/ privacy/
+components/
+  marketplace/ auth/ invoices/ ...
+supabase/
+  schema.sql        # invoices + storage
+  marketplace.sql   # distributors + deals + commission
+  admin.sql         # profiles + admin RLS for /admin
+```
+
+## الإعداد المحلي
+
+```bash
+cp .env.example .env.local
+npm install
+```
+
+املأ `.env.local` ثم في Supabase SQL Editor نفّذ بالترتيب:
+
+1. `supabase/schema.sql`
+2. `supabase/marketplace.sql`
+3. `supabase/admin.sql`
+
+رقِّ حسابك إلى مدير:
+
+```sql
+update public.profiles set role = 'admin' where email = 'your@email.com';
+```
+
+وأضف نفس البريد في `ADMIN_EMAILS` داخل `.env.local`.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## مسار الاستخدام
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. سجّل دخولاً
+2. أضف موزّعاً من `/distributors`
+3. أنشئ طلباً من `/orders` وأسنِده للموزّع
+4. حدّث الحالة: بدء التوصيل → تم التسليم
+5. راقب عمولة bAI من لوحة التحكم
+6. إن كنت مديراً: افتح `/admin` لمتابعة كل المنصة
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## نشر Vercel
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+أضف متغيرات البيئة، حدّث Auth URLs في Supabase، ونفّذ سكربتات SQL على مشروع الإنتاج.
