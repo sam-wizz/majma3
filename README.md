@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# bAI
 
-## Getting Started
+AI-native SaaS platform built with Next.js (App Router), TypeScript, Tailwind CSS, and shadcn/ui.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js** App Router + TypeScript
+- **Tailwind CSS** v4
+- **shadcn/ui** (Base UI / Nova style)
+- Path aliases via `@/*`
+
+## Project structure
+
+```text
+app/                 # Routes, layouts, and global styles
+components/
+  ui/                # shadcn/ui primitives
+  layout/            # Shared chrome (header, etc.)
+  marketing/         # Landing / marketing sections
+lib/                 # Utilities, constants, env helpers
+types/               # Shared TypeScript types
+public/              # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Getting started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+Copy `.env.example` to `.env.local` and fill in values as needed.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command         | Description              |
+| --------------- | ------------------------ |
+| `npm run dev`   | Start development server |
+| `npm run build` | Production build         |
+| `npm run start` | Start production server  |
+| `npm run lint`  | Run ESLint               |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## UI components
 
-## Deploy on Vercel
+shadcn/ui is configured via `components.json`. Add more components with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx shadcn@latest add <component>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Deploy on [Vercel](https://vercel.com) or any Node.js host that supports Next.js. Set `NEXT_PUBLIC_APP_URL` to your production URL before shipping.
