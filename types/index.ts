@@ -31,3 +31,11 @@ export type {
   InvoiceItem,
   InvoiceStatus,
 } from "@/types/invoice";
+
+export type {
+  CommissionSummary,
+  Deal,
+  DealStatus,
+  Distributor,
+  DistributorStatus,
+} from "@/types/marketplace";

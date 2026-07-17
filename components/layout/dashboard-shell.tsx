@@ -2,11 +2,13 @@ import Link from "next/link";
 
 import { signOut } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
 
 const links = [
   { href: "/dashboard", label: "لوحة التحكم" },
-  { href: "/upload", label: "رفع فاتورة" },
+  { href: "/orders", label: "الطلبات" },
+  { href: "/distributors", label: "الموزّعون" },
+  { href: "/upload", label: "الفواتير" },
   { href: "/privacy", label: "الخصوصية" },
 ] as const;
 
@@ -22,10 +24,13 @@ export function DashboardShell({
       <header className="border-b border-border/70 bg-background/80 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="font-heading text-xl font-semibold">
-              {APP_NAME}
+            <Link href="/dashboard" className="leading-tight">
+              <span className="font-heading text-xl font-semibold">{APP_NAME}</span>
+              <span className="mr-2 text-xs text-muted-foreground" dir="ltr">
+                {APP_TECH_NAME}
+              </span>
             </Link>
-            <nav className="hidden items-center gap-4 sm:flex">
+            <nav className="hidden items-center gap-4 md:flex">
               {links.map((link) => (
                 <Link
                   key={link.href}
@@ -40,7 +45,10 @@ export function DashboardShell({
 
           <div className="flex items-center gap-3">
             {email ? (
-              <span className="hidden text-sm text-muted-foreground md:inline" dir="ltr">
+              <span
+                className="hidden text-sm text-muted-foreground lg:inline"
+                dir="ltr"
+              >
                 {email}
               </span>
             ) : null}

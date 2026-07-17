@@ -3,7 +3,12 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { hasSupabaseConfig } from "@/lib/env";
 
-const PROTECTED_PREFIXES = ["/dashboard", "/upload"];
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/upload",
+  "/orders",
+  "/distributors",
+];
 const AUTH_ROUTES = ["/login", "/signup"];
 
 export async function updateSession(request: NextRequest) {

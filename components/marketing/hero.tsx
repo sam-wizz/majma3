@@ -1,7 +1,11 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { APP_NAME } from "@/lib/constants";
+import {
+  APP_NAME,
+  APP_TECH_NAME,
+  DEFAULT_COMMISSION_RATE,
+} from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -24,12 +28,15 @@ export function Hero() {
           <p className="font-heading text-6xl font-semibold tracking-tight text-foreground sm:text-8xl">
             {APP_NAME}
           </p>
+          <p className="mt-2 text-sm tracking-[0.2em] text-muted-foreground" dir="ltr">
+            powered by {APP_TECH_NAME}
+          </p>
           <h1 className="mt-6 max-w-xl text-2xl font-medium leading-snug tracking-tight text-foreground/90 sm:text-3xl">
-            ارفع فاتورتك… واستخرج بياناتها تلقائياً.
+            الموزّع الموجود يستلم الطلب ويوصله.
           </h1>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            منصة آمنة لرفع صور وملفات PDF، تحليلها بالذكاء الاصطناعي، وعرض
-            النتائج في لوحة تحكم خاصة بك.
+            {APP_NAME} تأخذ عمولة {(DEFAULT_COMMISSION_RATE * 100).toFixed(0)}% من
+            كل صفقة — بدون أسطول خاص، بالاعتماد على الموزّعين الحاليين في السوق.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Button
@@ -37,7 +44,7 @@ export function Hero() {
               className="animate-[fade-up_0.85s_ease-out_0.12s_both]"
               render={<Link href="/signup" />}
             >
-              إنشاء حساب
+              ابدأ الآن
             </Button>
             <Button
               size="lg"
