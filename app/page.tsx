@@ -1,11 +1,11 @@
 import { SiteHeader } from "@/components/layout/site-header";
 import { Hero } from "@/components/marketing/hero";
 import { Separator } from "@/components/ui/separator";
-import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
+import { APP_NAME } from "@/lib/constants";
 
 const steps = [
   {
-    title: `${APP_TECH_NAME} يستقبل الطلب`,
+    title: `${APP_NAME} يستقبل الطلب`,
     description: "تسجّل الصفقة في المنصة وتختار الموزّع المناسب للمنطقة.",
   },
   {

@@ -42,7 +42,7 @@ export default async function OrdersPage() {
             الطلبات والصفقات
           </h1>
           <p className="mt-2 text-muted-foreground">
-            أسند الطلب لموزّع موجود ليستلمه ويوصّله — وتُحسب عمولة مد من كل صفقة.
+            أسند الطلب لموزّع موجود ليستلمه ويوصّله — وتُحسب عمولة bAI من كل صفقة.
           </p>
         </div>
 

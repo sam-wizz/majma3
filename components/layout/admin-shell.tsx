@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signOut } from "@/app/actions/auth";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
+import { APP_NAME } from "@/lib/constants";
 
 const links = [
   { href: "/admin", label: "نظرة عامة" },
@@ -25,13 +25,10 @@ export function AdminShell({
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-4">
             <MobileNav links={links} />
-            <Link href="/admin" className="leading-tight">
+            <Link href="/admin" className="flex items-center gap-2 leading-tight">
               <span className="font-heading text-xl font-semibold">{APP_NAME}</span>
-              <span className="mr-2 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+              <span className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                 إدارة
-              </span>
-              <span className="mr-1 text-xs text-muted-foreground" dir="ltr">
-                {APP_TECH_NAME}
               </span>
             </Link>
             <nav className="hidden items-center gap-4 md:flex">

@@ -5,11 +5,7 @@ import { CommissionStats } from "@/components/marketplace/commission-stats";
 import { DealsTable } from "@/components/marketplace/deals-table";
 import { DataPrivacyNotice } from "@/components/privacy/data-privacy-notice";
 import { Button } from "@/components/ui/button";
-import {
-  APP_NAME,
-  APP_TECH_NAME,
-  DEFAULT_COMMISSION_RATE,
-} from "@/lib/constants";
+import { APP_NAME, DEFAULT_COMMISSION_RATE } from "@/lib/constants";
 import { requireUser } from "@/lib/auth";
 import { normalizeDeals } from "@/lib/deals";
 import { summarizeCommissions } from "@/lib/marketplace";
@@ -49,8 +45,8 @@ export default async function DashboardPage() {
             لوحة {APP_NAME}
           </h1>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            عبر {APP_TECH_NAME}: الموزّع الموجود يستلم الطلب ويوصله، و{APP_NAME}{" "}
-            تأخذ عمولة {(DEFAULT_COMMISSION_RATE * 100).toFixed(0)}% من كل صفقة.
+            الموزّع الموجود يستلم الطلب ويوصله، و{APP_NAME} تأخذ عمولة{" "}
+            {(DEFAULT_COMMISSION_RATE * 100).toFixed(0)}% من كل صفقة.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

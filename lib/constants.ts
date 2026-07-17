@@ -1,15 +1,12 @@
-export const APP_NAME = "مد";
-
-/** الطبقة التقنية للمنصة */
-export const APP_TECH_NAME = "bAI";
+export const APP_NAME = "bAI";
 
 export const APP_DESCRIPTION =
-  "منصة توزيع تربط الطلب بالموزّع الحالي للتوصيل، وتأخذ مد عمولة من كل صفقة.";
+  "منصة توزيع تربط الطلب بالموزّع الحالي للتوصيل، وتأخذ bAI عمولة من كل صفقة.";
 
 export const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
-/** نسبة عمولة مد الافتراضية من قيمة الصفقة (5%) */
+/** نسبة العمولة الافتراضية من قيمة الصفقة (5%) */
 export const DEFAULT_COMMISSION_RATE = 0.05;
 
 export function calculateCommission(

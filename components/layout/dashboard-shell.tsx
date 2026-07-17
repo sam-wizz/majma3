@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signOut } from "@/app/actions/auth";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
+import { APP_NAME } from "@/lib/constants";
 
 export function DashboardShell({
   email,
@@ -29,11 +29,11 @@ export function DashboardShell({
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-4">
             <MobileNav links={links} />
-            <Link href="/dashboard" className="leading-tight">
-              <span className="font-heading text-xl font-semibold">{APP_NAME}</span>
-              <span className="mr-2 text-xs text-muted-foreground" dir="ltr">
-                {APP_TECH_NAME}
-              </span>
+            <Link
+              href="/dashboard"
+              className="font-heading text-xl font-semibold tracking-tight"
+            >
+              {APP_NAME}
             </Link>
             <nav className="hidden items-center gap-4 md:flex">
               {links.map((link) => (

@@ -1,4 +1,4 @@
--- مد admin: profiles + صلاحيات المدير على كل البيانات
+-- bAI admin: profiles + صلاحيات المدير على كل البيانات
 -- نفّذ بعد marketplace.sql
 
 -- ---------------------------------------------------------------------------
@@ -137,6 +137,18 @@ create policy "Admins can update all deals"
   to authenticated
   using (public.is_admin())
   with check (public.is_admin());
+
+-- ---------------------------------------------------------------------------
+-- Backfill profiles للمستخدمين الحاليين
+-- ---------------------------------------------------------------------------
+insert into public.profiles (id, email, full_name, role)
+select
+  u.id,
+  u.email,
+  coalesce(u.raw_user_meta_data->>'full_name', ''),
+  'user'
+from auth.users u
+on conflict (id) do nothing;
 
 -- ---------------------------------------------------------------------------
 -- ترقية أول مدير (عدّل البريد ثم شغّل السطر)

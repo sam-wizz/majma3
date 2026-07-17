@@ -1,4 +1,4 @@
--- مد / bAI marketplace: distributors + deals + commission
+-- bAI marketplace: distributors + deals + commission
 -- Run after (or alongside) supabase/schema.sql
 
 -- ---------------------------------------------------------------------------
@@ -30,7 +30,7 @@ create policy "Users manage own distributors"
 
 -- ---------------------------------------------------------------------------
 -- Deals / Orders (الصفقات)
--- الموزع يستلم الطلب ويوصله — ومد تأخذ عمولة من كل صفقة
+-- الموزع يستلم الطلب ويوصله — وbAI تأخذ عمولة من كل صفقة
 -- ---------------------------------------------------------------------------
 create table if not exists public.deals (
   id uuid primary key default gen_random_uuid(),

@@ -1,11 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import {
-  APP_NAME,
-  APP_TECH_NAME,
-  DEFAULT_COMMISSION_RATE,
-} from "@/lib/constants";
+import { APP_NAME, DEFAULT_COMMISSION_RATE } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -27,9 +23,6 @@ export function Hero() {
         <div className="max-w-2xl animate-[fade-up_0.85s_ease-out_both]">
           <p className="font-heading text-6xl font-semibold tracking-tight text-foreground sm:text-8xl">
             {APP_NAME}
-          </p>
-          <p className="mt-2 text-sm tracking-[0.2em] text-muted-foreground" dir="ltr">
-            powered by {APP_TECH_NAME}
           </p>
           <h1 className="mt-6 max-w-xl text-2xl font-medium leading-snug tracking-tight text-foreground/90 sm:text-3xl">
             الموزّع الموجود يستلم الطلب ويوصله.

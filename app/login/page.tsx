@@ -26,7 +26,7 @@ export default async function LoginPage({
           </Link>
           <h1 className="text-xl font-medium">تسجيل الدخول</h1>
           <p className="text-sm text-muted-foreground">
-            ادخل لإدارة الموزّعين والصفقات وعمولة مد.
+            ادخل لإدارة الموزّعين والصفقات وعمولة bAI.
           </p>
         </div>
         <div className="rounded-2xl border border-border bg-background/90 p-6 shadow-sm">

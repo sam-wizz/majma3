@@ -34,7 +34,7 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
       <div className="rounded-xl border border-dashed border-border px-6 py-16 text-center">
         <p className="font-heading text-lg font-semibold">لا توجد صفقات بعد</p>
         <p className="mt-2 text-sm text-muted-foreground">
-          أنشئ طلبًا وأسنِده لموزّع موجود ليوصّله، وتُحتسب عمولة مد تلقائياً.
+          أنشئ طلبًا وأسنِده لموزّع موجود ليوصّله، وتُحتسب عمولة bAI تلقائياً.
         </p>
       </div>
     );
@@ -67,7 +67,7 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
               <TableHead>الموزّع</TableHead>
               <TableHead>التوصيل</TableHead>
               <TableHead>قيمة الصفقة</TableHead>
-              <TableHead>عمولة مد</TableHead>
+              <TableHead>عمولة bAI</TableHead>
               <TableHead>الحالة</TableHead>
               <TableHead>إجراء</TableHead>
             </TableRow>

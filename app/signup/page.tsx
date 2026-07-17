@@ -18,7 +18,7 @@ export default function SignupPage() {
           </Link>
           <h1 className="text-xl font-medium">إنشاء حساب</h1>
           <p className="text-sm text-muted-foreground">
-            ابدأ بإسناد الطلبات للموزّعين واحتساب عمولة مد تلقائياً.
+            ابدأ بإسناد الطلبات للموزّعين واحتساب عمولة bAI تلقائياً.
           </p>
         </div>
         <div className="rounded-2xl border border-border bg-background/90 p-6 shadow-sm">
