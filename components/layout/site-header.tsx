@@ -16,12 +16,15 @@ export function SiteHeader() {
 
         <nav className="flex items-center gap-3">
           <Link
-            href="#features"
+            href="/privacy"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
           >
-            Features
+            الخصوصية
           </Link>
-          <Button render={<Link href="#get-started" />}>Get started</Button>
+          <Button variant="ghost" render={<Link href="/login" />}>
+            دخول
+          </Button>
+          <Button render={<Link href="/signup" />}>ابدأ الآن</Button>
         </nav>
       </div>
     </header>

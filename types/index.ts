@@ -23,3 +23,11 @@ export interface ApiResponse<T> {
   data: T | null;
   error: string | null;
 }
+
+export type {
+  ActionResult,
+  Invoice,
+  InvoiceExtraction,
+  InvoiceItem,
+  InvoiceStatus,
+} from "@/types/invoice";

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Figtree, Syne } from "next/font/google";
+import { Noto_Sans_Arabic, Syne } from "next/font/google";
 
-import { cn } from "@/lib/utils";
 import { APP_DESCRIPTION, APP_NAME, APP_URL } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 import "./globals.css";
 
-const figtree = Figtree({
-  subsets: ["latin"],
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
   variable: "--font-sans",
 });
 
@@ -45,12 +45,15 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={cn(figtree.variable, syne.variable, "font-sans antialiased")}
+      lang="ar"
+      dir="rtl"
+      className={cn(
+        notoSansArabic.variable,
+        syne.variable,
+        "font-sans antialiased"
+      )}
     >
-      <body className="min-h-svh bg-background text-foreground">
-        {children}
-      </body>
+      <body className="min-h-svh bg-background text-foreground">{children}</body>
     </html>
   );
 }

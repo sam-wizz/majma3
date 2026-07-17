@@ -2,21 +2,20 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Hero } from "@/components/marketing/hero";
 import { Separator } from "@/components/ui/separator";
 
-const stack = [
+const features = [
   {
-    title: "Next.js App Router",
-    description:
-      "Server Components by default, typed routes, and a clean production baseline.",
+    title: "مصادقة Supabase",
+    description: "تسجيل دخول وإنشاء حساب مع حماية مسارات اللوحة والرفع.",
   },
   {
-    title: "Tailwind CSS",
+    title: "تحليل الفواتير",
     description:
-      "Utility-first styling with CSS variables for consistent theming across the product.",
+      "استخراج التاريخ والإجمالي والمورد والبنود عبر الذكاء الاصطناعي.",
   },
   {
-    title: "shadcn/ui",
+    title: "أمان وخصوصية",
     description:
-      "Composable, accessible UI primitives you own — ready to extend for your product.",
+      "مفاتيح في متغيرات البيئة، وRLS بحيث ترى فقط فواتيرك أنت.",
   },
 ] as const;
 
@@ -27,18 +26,20 @@ export default function HomePage() {
       <main>
         <Hero />
 
-        <section id="features" className="border-t border-border/60 bg-background">
+        <section
+          id="features"
+          className="border-t border-border/60 bg-background"
+        >
           <div className="mx-auto max-w-6xl px-6 py-24">
             <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-              Built on a modern stack
+              ماذا تفعل المنصة؟
             </h2>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              Everything you need to start shipping product features without
-              fighting the foundation.
+              من الرفع إلى لوحة التحكم — مسار كامل لمعالجة الفواتير بأمان.
             </p>
 
             <div className="mt-14 grid gap-10 sm:grid-cols-3">
-              {stack.map((item) => (
+              {features.map((item) => (
                 <div key={item.title}>
                   <h3 className="font-heading text-lg font-semibold tracking-tight">
                     {item.title}
@@ -57,13 +58,16 @@ export default function HomePage() {
         <section id="get-started" className="bg-muted/40">
           <div className="mx-auto max-w-6xl px-6 py-24">
             <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-              Ready when you are
+              ابدأ خلال دقائق
             </h2>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              Folders for components, lib, and types are in place. Add auth,
-              billing, and product routes next.
+              أضف متغيرات البيئة، نفّذ مخطط Supabase، ثم شغّل المشروع محلياً أو
+              انشره على Vercel.
             </p>
-            <pre className="mt-8 overflow-x-auto rounded-xl bg-foreground px-5 py-4 text-sm text-background">
+            <pre
+              className="mt-8 overflow-x-auto rounded-xl bg-foreground px-5 py-4 text-sm text-background"
+              dir="ltr"
+            >
               <code>npm run dev</code>
             </pre>
           </div>
