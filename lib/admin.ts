@@ -9,20 +9,28 @@ import { createClient } from "@/lib/supabase/server";
 export async function getProfileRole(
   userId: string
 ): Promise<"admin" | "user" | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", userId)
-    .maybeSingle();
-
-  if (error) {
-    console.error("getProfileRole failed:", error.message);
+  if (!hasSupabaseConfig()) {
     return null;
   }
 
-  if (data?.role === "admin" || data?.role === "user") {
-    return data.role;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", userId)
+      .maybeSingle();
+
+    if (error) {
+      console.error("getProfileRole failed:", error.message);
+      return null;
+    }
+
+    if (data?.role === "admin" || data?.role === "user") {
+      return data.role;
+    }
+  } catch (error) {
+    console.error("getProfileRole failed:", error);
   }
 
   return null;

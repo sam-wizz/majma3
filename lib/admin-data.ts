@@ -1,6 +1,7 @@
-import { getProfileRole } from "@/lib/admin";
-import { getSessionUser } from "@/lib/auth";
-import { hasServiceRoleKey } from "@/lib/env";
+import { redirect } from "next/navigation";
+
+import { getProfileRole, requireAdmin } from "@/lib/admin";
+import { hasServiceRoleKey, hasSupabaseConfig } from "@/lib/env";
 import { normalizeDeals } from "@/lib/deals";
 import { createServiceClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -8,6 +9,9 @@ import type { Profile } from "@/types";
 import type { Distributor } from "@/types/marketplace";
 
 export async function getAdminClient() {
+  if (!hasSupabaseConfig()) {
+    throw new Error("Supabase is not configured");
+  }
   if (hasServiceRoleKey()) {
     return createServiceClient();
   }
@@ -15,9 +19,14 @@ export async function getAdminClient() {
 }
 
 export async function fetchAdminOverview() {
+  // Gate here too: layout + page can render in parallel in the App Router.
+  if (!hasSupabaseConfig()) {
+    redirect("/login");
+  }
+
+  const user = await requireAdmin();
   const supabase = await getAdminClient();
-  const user = await getSessionUser();
-  const dbRole = user ? await getProfileRole(user.id) : null;
+  const dbRole = await getProfileRole(user.id);
 
   const [dealsResult, distributorsResult, profilesResult] = await Promise.all([
     supabase
