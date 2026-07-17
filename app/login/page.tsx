@@ -15,21 +15,21 @@ export default async function LoginPage({
   const nextPath = safeNextPath(params.next);
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-[radial-gradient(ellipse_at_top,oklch(0.93_0.04_195),transparent_55%),oklch(0.99_0.005_200)] px-6 py-16">
+    <div className="flex min-h-svh items-center justify-center bg-[radial-gradient(ellipse_at_top,#eef3ff,transparent_55%),#ffffff] px-6 py-16">
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-2 text-center">
           <Link
             href="/"
-            className="font-heading text-3xl font-semibold tracking-tight"
+            className="font-heading text-3xl font-extrabold tracking-tight text-navy"
           >
             {APP_NAME}
           </Link>
-          <h1 className="text-xl font-medium">تسجيل الدخول</h1>
+          <h1 className="text-xl font-semibold text-navy">تسجيل الدخول</h1>
           <p className="text-sm text-muted-foreground">
-            ادخل لإدارة الموزّعين والصفقات وعمولة bAI.
+            ادخل لإدارة الموزّعين والصفقات وعمولة {APP_NAME}.
           </p>
         </div>
-        <div className="rounded-2xl border border-border bg-background/90 p-6 shadow-sm">
+        <div className="rounded-2xl border border-border bg-white p-6 shadow-sm">
           <LoginForm nextPath={nextPath} />
         </div>
       </div>

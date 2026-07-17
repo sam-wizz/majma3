@@ -1,7 +1,7 @@
 export const APP_NAME = "bAI";
 
 export const APP_DESCRIPTION =
-  "منصة توزيع تربط الطلب بالموزّع الحالي للتوصيل، وتأخذ bAI عمولة من كل صفقة.";
+  "منصة نمو للموزّعين وتجار الجملة: أتمتة الطلبات، إسناد التوصيل للموزّع الحالي، وعمولة تلقائية من كل صفقة.";
 
 export const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";

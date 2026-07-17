@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Arabic, Syne } from "next/font/google";
+import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 
 import { APP_DESCRIPTION, APP_NAME, APP_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ const notoSansArabic = Noto_Sans_Arabic({
   variable: "--font-sans",
 });
 
-const syne = Syne({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-heading",
 });
@@ -19,13 +19,13 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: APP_NAME,
+    default: `${APP_NAME} | منصة النمو للموزّعين`,
     template: `%s · ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
   applicationName: APP_NAME,
   openGraph: {
-    title: APP_NAME,
+    title: `${APP_NAME} | منصة النمو للموزّعين`,
     description: APP_DESCRIPTION,
     url: APP_URL,
     siteName: APP_NAME,
@@ -49,7 +49,7 @@ export default function RootLayout({
       dir="rtl"
       className={cn(
         notoSansArabic.variable,
-        syne.variable,
+        plusJakarta.variable,
         "font-sans antialiased"
       )}
     >

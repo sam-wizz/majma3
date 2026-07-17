@@ -20,8 +20,8 @@ export function AdminShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.94_0.03_210),transparent_50%),oklch(0.985_0.01_200)]">
-      <header className="border-b border-border/70 bg-background/85 backdrop-blur">
+    <div className="relative min-h-svh bg-[radial-gradient(ellipse_at_top,#eef3ff,transparent_50%),#ffffff]">
+      <header className="border-b border-border/70 bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-4">
             <MobileNav links={links} />

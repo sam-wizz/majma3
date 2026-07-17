@@ -24,8 +24,8 @@ export function DashboardShell({
   ];
 
   return (
-    <div className="relative min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.02_200),transparent_55%),oklch(0.99_0.005_200)]">
-      <header className="border-b border-border/70 bg-background/80 backdrop-blur">
+    <div className="relative min-h-svh bg-[radial-gradient(ellipse_at_top,#eef3ff,transparent_55%),#ffffff]">
+      <header className="border-b border-border/70 bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex items-center gap-4">
             <MobileNav links={links} />
