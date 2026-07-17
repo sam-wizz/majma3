@@ -16,7 +16,7 @@ export default function PrivacyPage() {
             الخصوصية والأمان
           </h1>
           <p className="text-muted-foreground">
-            كيف نعالج بيانات الفواتير ونحمي وصول المستخدمين في منصة {APP_NAME}.
+            كيف نحمي بيانات الموزّعين والصفقات والفواتير في منصة {APP_NAME}.
           </p>
         </div>
 
@@ -29,18 +29,21 @@ export default function PrivacyPage() {
           <ul className="list-disc space-y-2 pr-5">
             <li>
               مفاتيح API تُخزَّن فقط في متغيرات البيئة على الخادم (
-              <span dir="ltr">.env.local</span> / Vercel Environment Variables).
+              <span dir="ltr">.env.local</span> / Vercel).
             </li>
             <li>
-              سياسات Row Level Security في Supabase تمنع قراءة أو تعديل فواتير
-              المستخدمين الآخرين.
+              سياسات RLS تمنع أي مستخدم من قراءة صفقات أو فواتير غيره.
             </li>
             <li>
-              مسارات <span dir="ltr">/dashboard</span> و{" "}
-              <span dir="ltr">/upload</span> محمية عبر جلسة المصادقة.
+              المسارات المحمية:{" "}
+              <span dir="ltr">/dashboard</span>، <span dir="ltr">/orders</span>،{" "}
+              <span dir="ltr">/distributors</span>،{" "}
+              <span dir="ltr">/upload</span>، <span dir="ltr">/admin</span>.
             </li>
             <li>
-              ملفات التخزين غير عامة، ومسار كل ملف يبدأ بمعرّف المستخدم.
+              لوحة الإدارة متاحة فقط للحسابات ذات دور{" "}
+              <span dir="ltr">admin</span> أو المدرجة في{" "}
+              <span dir="ltr">ADMIN_EMAILS</span>.
             </li>
           </ul>
         </section>

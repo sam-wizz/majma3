@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { hasSupabaseConfig } from "@/lib/env";
+import { ensureProfile } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/server";
 
 export async function getSessionUser() {
@@ -32,5 +33,6 @@ export async function requireUser() {
     redirect("/login");
   }
 
+  await ensureProfile(user);
   return user;
 }

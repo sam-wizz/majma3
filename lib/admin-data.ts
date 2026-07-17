@@ -1,3 +1,5 @@
+import { getProfileRole } from "@/lib/admin";
+import { getSessionUser } from "@/lib/auth";
 import { hasServiceRoleKey } from "@/lib/env";
 import { normalizeDeals } from "@/lib/deals";
 import { createServiceClient } from "@/lib/supabase/admin";
@@ -14,6 +16,8 @@ export async function getAdminClient() {
 
 export async function fetchAdminOverview() {
   const supabase = await getAdminClient();
+  const user = await getSessionUser();
+  const dbRole = user ? await getProfileRole(user.id) : null;
 
   const [dealsResult, distributorsResult, profilesResult] = await Promise.all([
     supabase
@@ -39,5 +43,6 @@ export async function fetchAdminOverview() {
       profiles: profilesResult.error?.message ?? null,
     },
     usingServiceRole: hasServiceRoleKey(),
+    hasDbAdminRole: dbRole === "admin",
   };
 }

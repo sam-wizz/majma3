@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { extractInvoiceData } from "@/lib/ai/extract-invoice";
 import { requireUser } from "@/lib/auth";
+import { hasSupabaseConfig } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import type { ActionResult } from "@/types/invoice";
 
@@ -22,6 +23,20 @@ export async function uploadInvoice(
   _prev: ActionResult | null,
   formData: FormData
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return {
+      success: false,
+      error: "إعدادات Supabase غير مكتملة في .env.local",
+    };
+  }
+
+  if (!process.env.OPENAI_API_KEY) {
+    return {
+      success: false,
+      error: "مفتاح OPENAI_API_KEY غير موجود في .env.local",
+    };
+  }
+
   const user = await requireUser();
   const file = formData.get("file");
 
@@ -124,5 +139,6 @@ export async function uploadInvoice(
   }
 
   revalidatePath("/dashboard");
-  redirect("/dashboard");
+  revalidatePath("/upload");
+  redirect("/dashboard#invoices");
 }

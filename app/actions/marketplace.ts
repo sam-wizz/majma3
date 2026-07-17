@@ -2,26 +2,46 @@
 
 import { revalidatePath } from "next/cache";
 
+import { isAdminUser } from "@/lib/admin";
 import {
   APP_NAME,
   DEFAULT_COMMISSION_RATE,
   calculateCommission,
 } from "@/lib/constants";
 import { requireUser } from "@/lib/auth";
+import { hasSupabaseConfig } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import type { ActionResult } from "@/types/invoice";
 import type { DealStatus } from "@/types/marketplace";
+
+const DEAL_STATUSES: DealStatus[] = [
+  "pending",
+  "assigned",
+  "in_transit",
+  "delivered",
+  "cancelled",
+];
 
 function revalidateMarketplace() {
   revalidatePath("/dashboard");
   revalidatePath("/orders");
   revalidatePath("/distributors");
+  revalidatePath("/admin");
+  revalidatePath("/admin/deals");
+  revalidatePath("/admin/distributors");
 }
 
 export async function createDistributor(
   _prev: ActionResult | null,
   formData: FormData
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return {
+      success: false,
+      error: "إعدادات Supabase غير مكتملة في .env.local",
+    };
+  }
+
   const user = await requireUser();
   const name = String(formData.get("name") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim() || null;
@@ -52,10 +72,19 @@ export async function createDeal(
   _prev: ActionResult | null,
   formData: FormData
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return {
+      success: false,
+      error: "إعدادات Supabase غير مكتملة في .env.local",
+    };
+  }
+
   const user = await requireUser();
   const customerName = String(formData.get("customerName") ?? "").trim();
-  const customerPhone = String(formData.get("customerPhone") ?? "").trim() || null;
-  const pickupAddress = String(formData.get("pickupAddress") ?? "").trim() || null;
+  const customerPhone =
+    String(formData.get("customerPhone") ?? "").trim() || null;
+  const pickupAddress =
+    String(formData.get("pickupAddress") ?? "").trim() || null;
   const deliveryAddress = String(formData.get("deliveryAddress") ?? "").trim();
   const distributorId = String(formData.get("distributorId") ?? "").trim();
   const notes = String(formData.get("notes") ?? "").trim() || null;
@@ -81,7 +110,6 @@ export async function createDeal(
 
   const commissionRate = DEFAULT_COMMISSION_RATE;
   const commissionAmount = calculateCommission(amount, commissionRate);
-
   const supabase = await createClient();
 
   const { data: distributor, error: distributorError } = await supabase
@@ -128,7 +156,19 @@ export async function updateDealStatus(
   dealId: string,
   status: DealStatus
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return {
+      success: false,
+      error: "إعدادات Supabase غير مكتملة في .env.local",
+    };
+  }
+
+  if (!DEAL_STATUSES.includes(status)) {
+    return { success: false, error: "حالة الصفقة غير صالحة." };
+  }
+
   const user = await requireUser();
+  const admin = await isAdminUser(user);
   const supabase = await createClient();
 
   const payload: {
@@ -148,14 +188,22 @@ export async function updateDealStatus(
     payload.delivered_at = null;
   }
 
-  const { error } = await supabase
-    .from("deals")
-    .update(payload)
-    .eq("id", dealId)
-    .eq("user_id", user.id);
+  let query = supabase.from("deals").update(payload).eq("id", dealId);
+  if (!admin) {
+    query = query.eq("user_id", user.id);
+  }
+
+  const { data, error } = await query.select("id").maybeSingle();
 
   if (error) {
     return { success: false, error: error.message };
+  }
+
+  if (!data) {
+    return {
+      success: false,
+      error: "لم يتم تحديث الصفقة. تحقق من الصلاحيات أو المعرّف.",
+    };
   }
 
   revalidateMarketplace();

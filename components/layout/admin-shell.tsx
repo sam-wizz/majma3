@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { signOut } from "@/app/actions/auth";
+import { MobileNav } from "@/components/layout/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { APP_NAME, APP_TECH_NAME } from "@/lib/constants";
 
@@ -19,10 +20,11 @@ export function AdminShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.94_0.03_210),transparent_50%),oklch(0.985_0.01_200)]">
+    <div className="relative min-h-svh bg-[radial-gradient(ellipse_at_top,oklch(0.94_0.03_210),transparent_50%),oklch(0.985_0.01_200)]">
       <header className="border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <MobileNav links={links} />
             <Link href="/admin" className="leading-tight">
               <span className="font-heading text-xl font-semibold">{APP_NAME}</span>
               <span className="mr-2 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">

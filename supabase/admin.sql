@@ -31,13 +31,22 @@ $$;
 
 drop policy if exists "Users can read own profile" on public.profiles;
 drop policy if exists "Admins can read all profiles" on public.profiles;
+drop policy if exists "Profiles are readable by owner or admin" on public.profiles;
 create policy "Profiles are readable by owner or admin"
   on public.profiles
   for select
   to authenticated
   using (auth.uid() = id or public.is_admin());
 
+drop policy if exists "Users can insert own profile" on public.profiles;
+create policy "Users can insert own profile"
+  on public.profiles
+  for insert
+  to authenticated
+  with check (auth.uid() = id and role = 'user');
+
 drop policy if exists "Users can update own profile name" on public.profiles;
+drop policy if exists "Users can update own profile" on public.profiles;
 create policy "Users can update own profile"
   on public.profiles
   for update

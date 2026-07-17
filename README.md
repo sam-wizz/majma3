@@ -30,6 +30,7 @@ components/
 supabase/
   schema.sql        # invoices + storage
   marketplace.sql   # distributors + deals + commission
+  admin.sql         # profiles + admin RLS for /admin
 ```
 
 ## الإعداد المحلي

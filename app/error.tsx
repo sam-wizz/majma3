@@ -18,13 +18,14 @@ export default function Error({
   return (
     <main className="flex min-h-svh flex-col items-center justify-center px-6 text-center">
       <h1 className="font-heading text-3xl font-semibold tracking-tight">
-        Something went wrong
+        حدث خطأ غير متوقع
       </h1>
       <p className="mt-3 max-w-md text-muted-foreground">
-        An unexpected error occurred. Try again, or refresh the page.
+        حاول مرة أخرى، أو حدّث الصفحة. إذا استمر الخطأ تأكد من إعداد{" "}
+        <span dir="ltr">.env.local</span> وسكربتات Supabase.
       </p>
       <Button className="mt-8" onClick={reset}>
-        Try again
+        إعادة المحاولة
       </Button>
     </main>
   );

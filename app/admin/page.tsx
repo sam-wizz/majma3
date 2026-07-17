@@ -10,11 +10,18 @@ import { APP_NAME } from "@/lib/constants";
 import { summarizeCommissions } from "@/lib/marketplace";
 
 export default async function AdminPage() {
-  const { deals, distributors, profiles, errors, usingServiceRole } =
-    await fetchAdminOverview();
+  const {
+    deals,
+    distributors,
+    profiles,
+    errors,
+    usingServiceRole,
+    hasDbAdminRole,
+  } = await fetchAdminOverview();
   const summary = summarizeCommissions(deals);
   const adminCount = profiles.filter((profile) => profile.role === "admin").length;
   const userCount = profiles.length;
+  const showSetupHint = !usingServiceRole && !hasDbAdminRole;
 
   return (
     <div className="space-y-10">
@@ -35,15 +42,14 @@ export default async function AdminPage() {
         </div>
       </div>
 
-      {!usingServiceRole ? (
+      {showSetupHint ? (
         <Alert>
-          <AlertTitle>إعداد مُستحسن للوحة الإدارة</AlertTitle>
+          <AlertTitle>أكمل إعداد لوحة الإدارة</AlertTitle>
           <AlertDescription>
-            نفّذ <span dir="ltr">supabase/admin.sql</span> ورقِّ حسابك:{" "}
-            <span dir="ltr">update profiles set role = &apos;admin&apos;...</span>
-            . ولأقوى صلاحية عبر الخادم أضف أيضاً{" "}
-            <span dir="ltr">SUPABASE_SERVICE_ROLE_KEY</span> و{" "}
-            <span dir="ltr">ADMIN_EMAILS</span> في <span dir="ltr">.env.local</span>.
+            نفّذ <span dir="ltr">supabase/admin.sql</span> ثم رقِّ حسابك إلى admin،
+            وأضف <span dir="ltr">ADMIN_EMAILS</span> مع{" "}
+            <span dir="ltr">SUPABASE_SERVICE_ROLE_KEY</span> في{" "}
+            <span dir="ltr">.env.local</span> حتى تظهر كل بيانات المنصة.
           </AlertDescription>
         </Alert>
       ) : null}

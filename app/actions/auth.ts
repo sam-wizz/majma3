@@ -3,13 +3,23 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { hasSupabaseConfig } from "@/lib/env";
+import { safeNextPath } from "@/lib/navigation";
+import { ensureProfile } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/server";
 import type { ActionResult } from "@/types/invoice";
+
+const CONFIG_ERROR =
+  "إعدادات Supabase غير مكتملة. انسخ .env.example إلى .env.local واملأ المفاتيح.";
 
 export async function signUp(
   _prev: ActionResult | null,
   formData: FormData
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return { success: false, error: CONFIG_ERROR };
+  }
+
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const fullName = String(formData.get("fullName") ?? "").trim();
@@ -38,6 +48,10 @@ export async function signUp(
     return { success: false, error: error.message };
   }
 
+  if (data.user) {
+    await ensureProfile(data.user);
+  }
+
   revalidatePath("/", "layout");
 
   if (!data.session) {
@@ -55,16 +69,20 @@ export async function signIn(
   _prev: ActionResult | null,
   formData: FormData
 ): Promise<ActionResult> {
+  if (!hasSupabaseConfig()) {
+    return { success: false, error: CONFIG_ERROR };
+  }
+
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = String(formData.get("next") ?? "/dashboard");
+  const next = safeNextPath(String(formData.get("next") ?? "/dashboard"));
 
   if (!email || !password) {
     return { success: false, error: "البريد الإلكتروني وكلمة المرور مطلوبان." };
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -73,11 +91,19 @@ export async function signIn(
     return { success: false, error: error.message };
   }
 
+  if (data.user) {
+    await ensureProfile(data.user);
+  }
+
   revalidatePath("/", "layout");
-  redirect(next.startsWith("/") ? next : "/dashboard");
+  redirect(next);
 }
 
 export async function signOut(): Promise<void> {
+  if (!hasSupabaseConfig()) {
+    redirect("/login");
+  }
+
   const supabase = await createClient();
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
